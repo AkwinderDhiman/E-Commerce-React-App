@@ -155,7 +155,9 @@ export default function Navbar({ toggleSidebar }) {
             <LocalBarIcon fontSize="small" />
             BEVERAGES
           </a>
-          <a href="#" className="nav-item">BLOG</a>
+          <Link to="/blog" className="nav-item">
+            BLOG
+          </Link>
           <Link to="/contact" className="nav-item">
             CONTACT
           </Link>

@@ -13,7 +13,7 @@ import CookieIcon from "@mui/icons-material/Cookie";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ toggleSidebar }) {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   const categories = [
@@ -118,7 +118,7 @@ export default function Navbar() {
             className="!bg-cyan-500 !text-white !rounded-full hover:!bg-cyan-600 !mr-2"
             startIcon={<MenuIcon />}
             endIcon={<ExpandMoreIcon />}
-            onClick={() => setCategoriesOpen(!categoriesOpen)}
+            onClick={toggleSidebar}
           >
             All Categories
           </Button>

@@ -1,24 +1,25 @@
-import Header from "../Components/Header";
+import { useState } from "react";
+import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import ProductCard from "../Components/ProductCard";
+import ProductCard from "../components/ProductCard";
 import products from "../data/products";
 
 const Home = ()=> {
 
-    const product = {
-    name: "Apple",
-    price: 2.5
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const toggleSidebar = () => {
+    setOpenSidebar(!openSidebar);
   };
 
-  
     return (
        <>
        <Header/>
 
-      <Navbar />
+      <Navbar  toggleSidebar={toggleSidebar} />
        <div className="flex p-6">
-        <Sidebar />
+        <Sidebar openSidebar={openSidebar} />
       <div className="grid grid-cols-3 gap-6">
 
             {products.map((p) => (

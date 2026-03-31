@@ -5,7 +5,7 @@ import Checkbox from "@mui/material/Checkbox";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
-export default function Sidebar() {
+export default function Sidebar({ openSidebar }) {
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
@@ -54,8 +54,9 @@ export default function Sidebar() {
     </div>
   );
 
+  if (!openSidebar) return null;
   return (
-    <div className="w-64 pr-4 border-r border-gray-200">
+    <div className="w-64 pl-8 border-r border-gray-200">
       
       {/* Product Categories */}
       <div className="mb-6">

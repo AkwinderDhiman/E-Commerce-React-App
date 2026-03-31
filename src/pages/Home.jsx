@@ -7,7 +7,7 @@ import products from "../data/products";
 
 const Home = ()=> {
 
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);

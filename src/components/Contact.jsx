@@ -18,7 +18,7 @@ export default function Contact() {
         </div>
 
         {/* Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-3 md:grid-cols-2 gap-6 mb-12">
           <div className="bg-white rounded-2xl shadow p-6 text-center">
             <LocationOnIcon className="mx-auto text-indigo-600 mb-3" fontSize="large" />
             <h3 className="font-semibold text-gray-800">

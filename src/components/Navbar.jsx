@@ -151,10 +151,10 @@ export default function Navbar({ toggleSidebar }) {
             <LocalCafeIcon fontSize="small" />
             BAKERY
           </a>
-          <a href="#" className="nav-item">
+          <Link to="/beverages" className="nav-item">
             <LocalBarIcon fontSize="small" />
             BEVERAGES
-          </a>
+          </Link>
           <Link to="/blog" className="nav-item">
             BLOG
           </Link>

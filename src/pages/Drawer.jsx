@@ -73,6 +73,12 @@ export default function TemporaryDrawer({ open, setOpen }) {
         </ListItem>
 
         <ListItem disablePadding>
+          <ListItemButton component="a" href="/shop" onClick={handleClose}>
+            <ListItemText primary="Shop" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
           <ListItemButton component="a" href="/meats-seafood" onClick={handleClose}>
             <ListItemText primary="Meats & Seafood" />
           </ListItemButton>

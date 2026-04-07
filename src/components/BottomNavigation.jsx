@@ -41,12 +41,20 @@ export default function BottomNav({ onCategoriesClick, cartCount = 0 }) {
         left: 0,
         right: 0,
         zIndex: 100,
-        borderTop: "1px solid #e0e0e0",
+        borderTop: "1px solid #e5e7eb",
         backgroundColor: "white",
+        boxShadow: "0 -2px 4px rgba(0,0,0,0.05)",
+        transition: "all 0.3s ease-in-out",
         "& .MuiBottomNavigationAction-root": {
           color: "#999",
+          transition: "all 0.3s ease-in-out",
+          "&:hover": {
+            transform: "scale(1.05)",
+            color: "#06b6d4",
+          },
           "&.Mui-selected": {
-            color: "#06b6d4"
+            color: "#06b6d4",
+            fontWeight: 600,
           }
         }
       }}
@@ -54,18 +62,22 @@ export default function BottomNav({ onCategoriesClick, cartCount = 0 }) {
       <BottomNavigationAction 
         label="Store" 
         icon={<StorefrontIcon />}
+        className="transition-smooth"
       />
       <BottomNavigationAction 
         label="Search" 
         icon={<SearchIcon />}
+        className="transition-smooth"
       />
       <BottomNavigationAction 
         label="Account" 
         icon={<AccountCircleIcon />}
+        className="transition-smooth"
       />
       <BottomNavigationAction 
         label="Categories" 
         icon={<MenuIcon />}
+        className="transition-smooth"
       />
     </BottomNavigation>
   );

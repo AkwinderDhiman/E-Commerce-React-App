@@ -111,59 +111,60 @@ export default function Navbar({ toggleSidebar }) {
   );
 
   return (
-    <div className="bg-white border-b sticky top-0 z-50">
-      <div className="hidden md:grid max-w-7xl mx-auto grid-cols-1 md:grid-cols-2 items-center gap-0 px-4 py-0">
+    <div className="hidden md:block bg-white border-b sticky top-0 z-40 shadow-md">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-0 px-4 py-0">
 
-        {/* All Categories Button */}
-        <div className="categories-button-wrapper">
-          <Button 
-            variant="contained" 
-            className="!bg-cyan-500 !text-white !rounded-full hover:!bg-cyan-600 !mr-2"
-            startIcon={<MenuIcon />}
-            endIcon={<ExpandMoreIcon />}
-            onClick={toggleSidebar}
-          >
-            All Categories
-          </Button>
-          {categoriesOpen && <CategoriesDropdown />}
+          {/* All Categories Button */}
+          <div className="categories-button-wrapper">
+            <Button 
+              variant="contained" 
+              className="!bg-cyan-500 !text-white !rounded-full hover:!bg-cyan-600 hover:!scale-105 !mr-2 transition-all duration-300"
+              startIcon={<MenuIcon />}
+              endIcon={<ExpandMoreIcon />}
+              onClick={toggleSidebar}
+            >
+              All Categories
+            </Button>
+            {categoriesOpen && <CategoriesDropdown />}
+          </div>
+
+          {/* Navigation Menu */}
+          <nav className="flex gap-0 text-sm ml-auto">
+            
+            {/* Home with Dropdown */}
+            <div className="nav-item-wrapper transition-all duration-300">
+              <NavLink to="/home"  className={({ isActive }) => isActive ? "nav-item active transition-all duration-300" : "nav-item transition-all duration-300"}>
+              HOME  <ExpandMoreIcon fontSize="small" />
+            </NavLink>
+              <DropdownMenu items={navMenus.home} />
+            </div>
+
+            {/* Shop with Dropdown */}
+            <div className="nav-item-wrapper transition-all duration-300">
+              <DropdownMenu items={navMenus.shop} />
+            </div>
+
+            <NavLink to="/meats-seafood"  className={({ isActive }) => isActive ? "nav-item active transition-all duration-300" : "nav-item transition-all duration-300"}>
+              <LocalDiningIcon fontSize="small" />
+              MEATS & SEAFOOD
+            </NavLink>
+            <NavLink to="/bakery"  className={({ isActive }) => isActive ? "nav-item active transition-all duration-300" : "nav-item transition-all duration-300"}>
+              <LocalCafeIcon fontSize="small" />
+              BAKERY
+            </NavLink>
+            <NavLink to="/beverages"  className={({ isActive }) => isActive ? "nav-item active transition-all duration-300" : "nav-item transition-all duration-300"}>
+              <LocalBarIcon fontSize="small" />
+              BEVERAGES
+            </NavLink>
+            <NavLink to="/blog"  className={({ isActive }) => isActive ? "nav-item active transition-all duration-300" : "nav-item transition-all duration-300"}>
+              BLOG
+            </NavLink>
+            <NavLink to="/contact"  className={({ isActive }) => isActive ? "nav-item active transition-all duration-300" : "nav-item transition-all duration-300"}>
+              CONTACT
+            </NavLink>
+          </nav>
         </div>
-
-        {/* Navigation Menu */}
-        <nav className="flex gap-0 text-sm ml-auto">
-          
-          {/* Home with Dropdown */}
-          <div className="nav-item-wrapper">
-            <NavLink to="/home"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-            HOME  <ExpandMoreIcon fontSize="small" />
-          </NavLink>
-            <DropdownMenu items={navMenus.home} />
-          </div>
-
-          {/* Shop with Dropdown */}
-          <div className="nav-item-wrapper">
-            {/* <a href="#"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>SHOP <ExpandMoreIcon fontSize="small" /></a> */}
-            <DropdownMenu items={navMenus.shop} />
-          </div>
-
-          <NavLink to="/meats-seafood"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-            <LocalDiningIcon fontSize="small" />
-            MEATS & SEAFOOD
-          </NavLink>
-          <NavLink to="/bakery"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-            <LocalCafeIcon fontSize="small" />
-            BAKERY
-          </NavLink>
-          <NavLink to="/beverages"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-            <LocalBarIcon fontSize="small" />
-            BEVERAGES
-          </NavLink>
-          <NavLink to="/blog"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-            BLOG
-          </NavLink>
-          <NavLink to="/contact"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-            CONTACT
-          </NavLink>
-        </nav>
       </div>
     </div>
   );

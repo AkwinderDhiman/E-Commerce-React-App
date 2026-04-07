@@ -33,7 +33,7 @@ const Layout = () => {
     <>
       {isMobile ? (
         // Mobile Layout
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-white">
           <Header toggleSidebar={toggleSidebar} />
           <div className="flex-1 overflow-y-auto pb-20">
             <Outlet />
@@ -42,17 +42,21 @@ const Layout = () => {
         </div>
       ) : (
         // Desktop Layout
-        <>
+        <div className="flex flex-col min-h-screen bg-gray-50">
           <Header toggleSidebar={toggleSidebar} />
           <Navbar toggleSidebar={toggleSidebar} />
-          <div className="flex">
-            <Sidebar openSidebar={openSidebar} />
-            <div className="p-4 w-full">
+          <div className="flex flex-1 gap-0">
+            <div 
+              className={`transition-all duration-300 ${openSidebar ? 'w-auto' : 'w-0 overflow-hidden'}`}
+            >
+              <Sidebar openSidebar={openSidebar} />
+            </div>
+            <div className="flex-1 p-4">
               <Outlet />
             </div>
           </div>
           <Footer />
-        </>
+        </div>
       )}
     </>
   );

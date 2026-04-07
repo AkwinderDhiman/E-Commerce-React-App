@@ -13,9 +13,11 @@ import CookieIcon from "@mui/icons-material/Cookie";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
+import useResponsive from "../hooks/useResponsive";
 
 export default function Navbar({ toggleSidebar }) {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const { isMobile } = useResponsive();
 
   const categories = [
     { 
@@ -110,7 +112,7 @@ export default function Navbar({ toggleSidebar }) {
 
   return (
     <div className="bg-white border-b sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center gap-0 px-4 py-0">
+      <div className="hidden md:grid max-w-7xl mx-auto grid-cols-1 md:grid-cols-2 items-center gap-0 px-4 py-0">
 
         {/* All Categories Button */}
         <div className="categories-button-wrapper">
@@ -139,7 +141,7 @@ export default function Navbar({ toggleSidebar }) {
 
           {/* Shop with Dropdown */}
           <div className="nav-item-wrapper">
-            <a href="#"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>SHOP <ExpandMoreIcon fontSize="small" /></a>
+            {/* <a href="#"  className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>SHOP <ExpandMoreIcon fontSize="small" /></a> */}
             <DropdownMenu items={navMenus.shop} />
           </div>
 

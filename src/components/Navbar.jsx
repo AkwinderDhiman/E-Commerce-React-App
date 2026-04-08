@@ -15,7 +15,7 @@ import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 import useResponsive from "../hooks/useResponsive";
 
-export default function Navbar({ toggleSidebar }) {
+export default function Navbar({ toggleSidebar, activeCategory }) {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const { isMobile } = useResponsive();
 
@@ -88,9 +88,10 @@ export default function Navbar({ toggleSidebar }) {
     <div className="categories-dropdown">
       {categories.map((category, index) => {
         const IconComponent = category.icon;
+        const isActive = activeCategory === category.name;
         return (
           <div key={index} className="category-item-wrapper">
-            <a href="#" className="category-item">
+            <a href="#" className={`category-item ${isActive ? 'bg-blue-100 border-l-4 border-blue-500' : ''}`}>
               <IconComponent className="category-icon" />
               <span className="category-name">{category.name}</span>
             {category.submenu && <ChevronRightIcon className="arrow-icon" />}

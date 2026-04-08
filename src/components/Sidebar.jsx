@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "@mui/material/Slider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
-export default function Sidebar({ openSidebar }) {
+export default function Sidebar({ openSidebar, onCategorySelect, activeCategory }) {
+  const navigate = useNavigate();
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
@@ -16,7 +18,6 @@ export default function Sidebar({ openSidebar }) {
   const [expandedCategories, setExpandedCategories] = useState({
     "Meats & Seafood": true
   });
-  const [checkedCategories, setCheckedCategories] = useState({});
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -32,11 +33,20 @@ export default function Sidebar({ openSidebar }) {
     }));
   };
 
-  const handleCategoryCheck = (category) => {
-    setCheckedCategories(prev => ({
-      ...prev,
-      [category]: !prev[category]
-    }));
+  // Map category names to routes
+  const categoryRoutes = {
+    "Beverages": "/beverages",
+    "Breads & Bakery": "/bakery",
+    "Meats & Seafood": "/meats-seafood"
+  };
+
+  const handleCategoryClick = (categoryName) => {
+    onCategorySelect(categoryName);
+    
+    // Navigate to the category route if it exists
+    if (categoryRoutes[categoryName]) {
+      navigate(categoryRoutes[categoryName]);
+    }
   };
 
   const categories = [
@@ -147,11 +157,20 @@ export default function Sidebar({ openSidebar }) {
                 <div className="flex items-center py-2 hover:bg-gray-50">
                   <Checkbox
                     size="small"
-                    checked={checkedCategories[cat.name] || false}
-                    onChange={() => handleCategoryCheck(cat.name)}
+                    checked={activeCategory === cat.name}
+                    onChange={() => handleCategoryClick(cat.name)}
                     className="mr-2"
                   />
-                  <span className="text-sm text-gray-600 flex-1">{cat.name}</span>
+                  <button
+                    onClick={() => handleCategoryClick(cat.name)}
+                    className={`text-sm flex-1 text-left transition cursor-pointer ${
+                      activeCategory === cat.name
+                        ? 'text-blue-600 font-semibold'
+                        : 'text-gray-600 hover:text-blue-600 hover:font-semibold'
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
                   {cat.subcategories.length > 0 && (
                     <button
                       onClick={() => toggleCategory(cat.name)}
@@ -175,7 +194,14 @@ export default function Sidebar({ openSidebar }) {
                           size="small"
                           className="mr-2"
                         />
-                        <span className="text-sm text-gray-600">{sub}</span>
+                        <button
+                          onClick={() => {
+                            handleCategoryClick(cat.name);
+                          }}
+                          className="text-sm text-gray-600 flex-1 text-left hover:text-blue-600 hover:font-semibold transition cursor-pointer"
+                        >
+                          {sub}
+                        </button>
                       </div>
                     ))}
                   </div>

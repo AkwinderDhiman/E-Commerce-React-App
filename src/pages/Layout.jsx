@@ -10,6 +10,7 @@ import useResponsive from "../hooks/useResponsive";
 const Layout = () => {
   const [openSidebar, setOpenSidebar] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
   const { isMobile } = useResponsive();
 
   // Auto-hide sidebar on mobile, show on desktop
@@ -29,6 +30,10 @@ const Layout = () => {
     setDrawerOpen(true);
   };
 
+  const handleCategorySelect = (categoryName) => {
+    setActiveCategory(categoryName);
+  };
+
   return (
     <>
       {isMobile ? (
@@ -44,12 +49,12 @@ const Layout = () => {
         // Desktop Layout
         <div className="flex flex-col min-h-screen bg-gray-50">
           <Header toggleSidebar={toggleSidebar} />
-          <Navbar toggleSidebar={toggleSidebar} />
+          <Navbar toggleSidebar={toggleSidebar} activeCategory={activeCategory} />
           <div className="flex flex-1 gap-0">
             <div 
               className={`transition-all duration-300 ${openSidebar ? 'w-auto' : 'w-0 overflow-hidden'}`}
             >
-              <Sidebar openSidebar={openSidebar} />
+              <Sidebar openSidebar={openSidebar} onCategorySelect={handleCategorySelect} activeCategory={activeCategory} />
             </div>
             <div className="flex-1 p-4">
               <Outlet />

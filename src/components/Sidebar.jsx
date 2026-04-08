@@ -13,6 +13,10 @@ export default function Sidebar({ openSidebar }) {
     status: true,
     brand: true
   });
+  const [expandedCategories, setExpandedCategories] = useState({
+    "Meats & Seafood": true
+  });
+  const [checkedCategories, setCheckedCategories] = useState({});
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -21,15 +25,89 @@ export default function Sidebar({ openSidebar }) {
     }));
   };
 
+  const toggleCategory = (category) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
+
+  const handleCategoryCheck = (category) => {
+    setCheckedCategories(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
+
   const categories = [
-    "Beverages",
-    "Biscuits & Snacks",
-    "Breads & Bakery",
-    "Breakfast & Dairy",
-    "Frozen Foods",
-    "Fruits & Vegetables",
-    "Household Needs",
-    "Meats & Seafood"
+    { 
+      name: "Beverages", 
+      subcategories: [
+        "Coffee",
+        "Craft Beer",
+        "Drink Boxes & Pouches",
+        "Milk & Plant-Based Milk",
+        "Soda & Pop",
+        "Sparkling Water",
+        "Tea & Kombucha",
+        "Water",
+        "Wine"
+      ]
+    },
+    { name: "Biscuits & Snacks", subcategories: [] },
+    { 
+      name: "Breads & Bakery", 
+      subcategories: [
+        "Buns and Rolls",
+        "Cakes and Cupcakes",
+        "Cookies and Brownies",
+        "Donuts and Muffins",
+        "Order Specialty Cakes",
+        "Packaged Breads"
+      ]
+    },
+    { 
+      name: "Breakfast & Dairy", 
+      subcategories: [
+        "Butter and Margarine",
+        "Cheese",
+        "Eggs Substitutes",
+        "Honey",
+        "Marmalades",
+        "Milk & Flavoured Milk",
+        "Sour Cream and Dips",
+        "Yogurt"
+      ]
+    },
+    { name: "Frozen Foods", subcategories: [] },
+    { 
+      name: "Fruits & Vegetables", 
+      subcategories: [
+        "Cuts & Sprouts",
+        "Exotic Fruits & Veggies",
+        "Fresh Fruits",
+        "Fresh Vegetables",
+        "Herbs & Seasonings",
+        "Packaged Produce",
+        "Party Trays"
+      ]
+    },
+    { name: "Grocery & Staples", subcategories: [] },
+    { name: "Household Needs", subcategories: [] },
+    { 
+      name: "Meats & Seafood", 
+      subcategories: [
+        "Beef",
+        "Breakfast Sausage",
+        "Chicken",
+        "Crab and Shellfish",
+        "Dinner Sausage",
+        "Farm Raised Fillets",
+        "Shrimp",
+        "Sliced Deli Meat",
+        "Wild Caught Fillets"
+      ]
+    }
   ];
 
   const brands = [
@@ -62,13 +140,46 @@ export default function Sidebar({ openSidebar }) {
       <div className="mb-6">
         <SectionHeader title="PRODUCT CATEGORIES" section="categories" />
         {expandedSections.categories && (
-          <div className="space-y-2 mt-3">
+          <div className="space-y-0 mt-3">
             {categories.map((cat) => (
-              <div
-                key={cat}
-                className="py-2 text-sm text-gray-600 hover:text-blue-600 cursor-pointer hover:font-semibold transition"
-              >
-                + {cat}
+              <div key={cat.name}>
+                {/* Main Category */}
+                <div className="flex items-center py-2 hover:bg-gray-50">
+                  <Checkbox
+                    size="small"
+                    checked={checkedCategories[cat.name] || false}
+                    onChange={() => handleCategoryCheck(cat.name)}
+                    className="mr-2"
+                  />
+                  <span className="text-sm text-gray-600 flex-1">{cat.name}</span>
+                  {cat.subcategories.length > 0 && (
+                    <button
+                      onClick={() => toggleCategory(cat.name)}
+                      className="ml-auto mr-2 text-gray-500 hover:text-gray-700 p-1"
+                    >
+                      {expandedCategories[cat.name] ? (
+                        <span className="text-lg leading-none">−</span>
+                      ) : (
+                        <span className="text-lg leading-none">+</span>
+                      )}
+                    </button>
+                  )}
+                </div>
+
+                {/* Subcategories */}
+                {cat.subcategories.length > 0 && expandedCategories[cat.name] && (
+                  <div className="pl-8 space-y-0 bg-gray-50">
+                    {cat.subcategories.map((sub) => (
+                      <div key={sub} className="flex items-center py-2 hover:bg-gray-100">
+                        <Checkbox
+                          size="small"
+                          className="mr-2"
+                        />
+                        <span className="text-sm text-gray-600">{sub}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

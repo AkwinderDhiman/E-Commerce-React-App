@@ -1,13 +1,24 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "@mui/material/Slider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import AgricultureIcon from "@mui/icons-material/Agriculture";
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
+import LocalCafeIcon from "@mui/icons-material/LocalCafe";
+import LocalBarIcon from "@mui/icons-material/LocalBar";
+import BakeryDiningIcon from "@mui/icons-material/BakeryDining";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import CookieIcon from "@mui/icons-material/Cookie";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 export default function Sidebar({ openSidebar, onCategorySelect, activeCategory }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/" || location.pathname === "/home";
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
@@ -38,6 +49,18 @@ export default function Sidebar({ openSidebar, onCategorySelect, activeCategory 
     "Beverages": "/beverages",
     "Breads & Bakery": "/bakery",
     "Meats & Seafood": "/meats-seafood"
+  };
+
+  // Category icons mapping
+  const categoryIcons = {
+    "Fruits & Vegetables": AgricultureIcon,
+    "Meats & Seafood": LocalDiningIcon,
+    "Breakfast & Dairy": LocalCafeIcon,
+    "Beverages": LocalBarIcon,
+    "Breads & Bakery": BakeryDiningIcon,
+    "Frozen Foods": AcUnitIcon,
+    "Biscuits & Snacks": CookieIcon,
+    "Grocery & Staples": StorefrontIcon
   };
 
   const handleCategoryClick = (categoryName) => {
@@ -143,6 +166,61 @@ export default function Sidebar({ openSidebar, onCategorySelect, activeCategory 
   );
 
   if (!openSidebar) return null;
+
+  // Home page sidebar - simplified with icons
+  if (isHomePage) {
+    return (
+      <div className="w-64 border-r border-gray-200 bg-white">
+        {/* Categories with Icons */}
+        <div className="p-4">
+          <h3 className="font-bold text-sm text-gray-800 mb-4">CATEGORIES</h3>
+          <div className="space-y-3">
+            {categories.slice(0, 8).map((cat) => {
+              const IconComponent = categoryIcons[cat.name];
+              return (
+                <button
+                  key={cat.name}
+                  onClick={() => handleCategoryClick(cat.name)}
+                  className={`w-full flex items-center gap-3 p-2 rounded transition ${
+                    activeCategory === cat.name
+                      ? 'bg-blue-50'
+                      : 'hover:bg-gray-50'
+                  }`}
+                >
+                  {IconComponent && <IconComponent className="text-gray-500" fontSize="small" />}
+                  <span className={`text-sm flex-1 text-left ${
+                    activeCategory === cat.name
+                      ? 'text-blue-600 font-semibold'
+                      : 'text-gray-700'
+                  }`}>
+                    {cat.name}
+                  </span>
+                  {cat.subcategories.length > 0 && (
+                    <ChevronRightIcon fontSize="small" className="text-gray-400" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="border-t border-gray-200 p-4 space-y-3">
+          <button className="w-full text-left text-sm text-gray-700 hover:text-blue-600 font-medium">
+            Value of the Day
+          </button>
+          <button className="w-full text-left text-sm text-gray-700 hover:text-blue-600 font-medium">
+            Top 100 Offers
+          </button>
+          <button className="w-full text-left text-sm text-gray-700 hover:text-blue-600 font-medium">
+            New Arrivals
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // All Categories page - full view with filters
   return (
     <div className="w-64 pl-8 border-r border-gray-200">
       
